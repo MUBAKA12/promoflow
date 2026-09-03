@@ -417,6 +417,81 @@ textarea {
   font-size: 0.92rem;
 }
 
+/* storyboard mini visual: photo strip -> output */
+.storyboard-strip {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sb-photo {
+  width: 30px;
+  height: 42px;
+  border-radius: 5px;
+  border: 1px solid var(--l-border);
+}
+.sb-1 {
+  background: linear-gradient(160deg, #ffe1ea, #ff9fbd);
+}
+.sb-2 {
+  background: linear-gradient(160deg, #ffd7e2, #ff749f);
+}
+.sb-3 {
+  background: linear-gradient(160deg, #ffc7d8, #ff3f7f);
+}
+.sb-4 {
+  background: linear-gradient(160deg, #ffb0c9, #d92562);
+}
+.sb-arrow {
+  color: var(--l-accent);
+  font-weight: 700;
+  margin: 0 2px;
+}
+.sb-output {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--l-text);
+  background: var(--l-bg-alt);
+  border: 1px solid var(--l-border);
+  border-radius: 6px;
+  padding: 10px 10px;
+}
+
+/* ad remix mini visual: one clip, multiple hook variants */
+.remix-strip {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.remix-clip {
+  flex-shrink: 0;
+  width: 56px;
+  height: 90px;
+  border-radius: 8px;
+  background: linear-gradient(160deg, #2a2a35, #14141a);
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  display: flex;
+  align-items: flex-end;
+  padding: 6px;
+}
+.remix-hooks {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+.remix-hook {
+  font-size: 0.72rem;
+  color: var(--l-text);
+  background: var(--l-bg-alt);
+  border: 1px solid var(--l-border);
+  border-radius: 6px;
+  padding: 7px 10px;
+}
+
 /* pricing */
 .pricing {
   padding: 96px 24px;

@@ -118,6 +118,14 @@ export default async function RootPage() {
                   collages, understands the story, and stitches it into a slideshow ad with
                   AI-written hooks.
                 </p>
+                <div className="storyboard-strip" aria-hidden="true">
+                  <span className="sb-photo sb-1" />
+                  <span className="sb-photo sb-2" />
+                  <span className="sb-photo sb-3" />
+                  <span className="sb-photo sb-4" />
+                  <span className="sb-arrow">→</span>
+                  <span className="sb-output">Slideshow</span>
+                </div>
               </div>
               <div className="secondary-engine">
                 <h3>Ad Remix</h3>
@@ -125,6 +133,14 @@ export default async function RootPage() {
                   Already have footage that used to convert? Don&apos;t re-shoot. Upload it and
                   generate fresh hook openings to beat ad fatigue.
                 </p>
+                <div className="remix-strip" aria-hidden="true">
+                  <span className="remix-clip">Your clip</span>
+                  <div className="remix-hooks">
+                    <span className="remix-hook">&quot;Found the fix&quot;</span>
+                    <span className="remix-hook">&quot;I tried 5, this won&quot;</span>
+                    <span className="remix-hook">&quot;Wait for it...&quot;</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
