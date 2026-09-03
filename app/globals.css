@@ -11,3 +11,57 @@
   --accent-dim: #ff3f7f22;
   --accent-soft: #ff3f7f0f;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Dropdowns default to black text in most browsers, which is invisible
+   against this app's dark backgrounds — force it to match the theme. */
+select {
+  color: var(--text);
+}
+select option {
+  color: var(--text);
+  background: var(--surface);
+}
+
+input,
+textarea {
+  color: var(--text);
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
