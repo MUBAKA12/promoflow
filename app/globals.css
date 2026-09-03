@@ -82,3 +82,436 @@ textarea {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ============================================================
+   Landing page — scoped under .landing, isolated from app UI
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap');
+
+.landing {
+  font-family: 'Sora', ui-sans-serif, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.landing h1,
+.landing h2,
+.landing h3 {
+  font-family: 'Sora', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.landing p {
+  margin: 0;
+}
+
+/* topbar */
+.topbar {
+  border-bottom: 1px solid var(--border);
+}
+.topbar-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.wordmark {
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+}
+.nav-signin {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.nav-signin:hover {
+  color: var(--text);
+}
+
+/* hero */
+.hero {
+  padding: 88px 24px 96px;
+}
+.hero-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.7fr;
+  gap: 64px;
+  align-items: center;
+}
+.hero-copy h1 {
+  font-size: 3rem;
+  line-height: 1.08;
+}
+.hero-sub {
+  margin-top: 22px;
+  max-width: 46ch;
+  font-size: 1.08rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+.hero-ctas {
+  margin-top: 34px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 14px 26px;
+  border-radius: 10px;
+  text-decoration: none;
+  display: inline-block;
+  transition: opacity 0.15s;
+}
+.btn-primary:hover {
+  opacity: 0.88;
+}
+.btn-secondary {
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 14px 22px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color 0.15s;
+}
+.btn-secondary:hover {
+  border-color: var(--accent);
+}
+
+/* hero phone visual */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+}
+.phone-frame {
+  width: 220px;
+  height: 440px;
+  border-radius: 34px;
+  border: 6px solid var(--surface-raised);
+  background: var(--surface);
+  padding: 8px;
+  box-shadow: 0 30px 60px -20px rgba(255, 63, 127, 0.25);
+}
+.phone-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--bg);
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: slidecycle 6s infinite;
+}
+.slide-label {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: white;
+}
+.slide-1 {
+  background: linear-gradient(160deg, #3a1220, #1a0a10);
+  animation-delay: 0s;
+}
+.slide-2 {
+  background: linear-gradient(160deg, #ff3f7f, #a01a45);
+  animation-delay: 2s;
+}
+.slide-3 {
+  background: linear-gradient(160deg, #2a2a35, #131318);
+  animation-delay: 4s;
+}
+@keyframes slidecycle {
+  0% { opacity: 0; }
+  4% { opacity: 1; }
+  30% { opacity: 1; }
+  36% { opacity: 0; }
+  100% { opacity: 0; }
+}
+.hook-bar {
+  position: absolute;
+  top: 14px;
+  left: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: 8px;
+  z-index: 5;
+}
+
+/* engines */
+.engines {
+  padding: 90px 24px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.engines-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.featured-engine {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 48px;
+}
+.featured-engine h2 {
+  font-size: 2.1rem;
+}
+.engine-tag {
+  margin-top: 8px;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.featured-engine-copy > p:not(.engine-tag) {
+  margin-top: 18px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 50ch;
+}
+.mode-chips {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.chip {
+  font-size: 0.85rem;
+  color: var(--text);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  width: fit-content;
+}
+.featured-engine-visual {
+  display: flex;
+  justify-content: center;
+}
+.mini-flow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mini-frame {
+  width: 78px;
+  height: 130px;
+  border-radius: 12px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 6px;
+}
+.mini-arrow {
+  color: var(--accent);
+  font-weight: 700;
+}
+.also-included {
+  margin-top: 56px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+.secondary-engines {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.secondary-engine {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 26px;
+}
+.secondary-engine h3 {
+  font-size: 1.15rem;
+}
+.secondary-engine p {
+  margin-top: 10px;
+  color: var(--text-muted);
+  line-height: 1.55;
+  font-size: 0.92rem;
+}
+
+/* pricing */
+.pricing {
+  padding: 96px 24px;
+}
+.pricing-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+.pricing h2 {
+  font-size: 2.1rem;
+}
+.pricing-sub {
+  margin: 18px auto 0;
+  max-width: 52ch;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+.pricing-table {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  text-align: left;
+}
+.plan {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+}
+.plan-featured {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+.plan-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.plan-price {
+  margin-top: 14px;
+  font-size: 2.1rem;
+  font-weight: 800;
+}
+.plan-price span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.plan-credits {
+  margin-top: 6px;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.plan-for {
+  margin-top: 14px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  min-height: 42px;
+}
+.plan-cta {
+  margin-top: 22px;
+  display: block;
+  text-align: center;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 11px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: border-color 0.15s;
+}
+.plan-cta:hover {
+  border-color: var(--accent);
+}
+.plan-cta-featured {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+.plan-cta-featured:hover {
+  opacity: 0.88;
+}
+.topup-note {
+  margin-top: 32px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* final CTA */
+.final-cta {
+  padding: 90px 24px 110px;
+  border-top: 1px solid var(--border);
+}
+.final-cta-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+.final-cta h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+/* footer */
+.footer {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 24px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+.footer-dim {
+  color: var(--text-muted);
+}
+
+@media (max-width: 860px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+  .hero-copy h1 {
+    font-size: 2.2rem;
+  }
+  .hero-visual {
+    order: -1;
+  }
+  .featured-engine {
+    grid-template-columns: 1fr;
+    padding: 32px;
+  }
+  .secondary-engines {
+    grid-template-columns: 1fr;
+  }
+  .pricing-table {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide {
+    animation: none;
+  }
+  .slide-1 { opacity: 1; }
+  .slide-2, .slide-3 { display: none; }
+}
