@@ -34,8 +34,17 @@ h4,
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
-/* Dropdowns default to black text in most browsers, which is invisible
-   against this app's dark backgrounds — force it to match the theme. */
+/* Browsers apply their own default text color to buttons that does NOT
+   inherit from the page by default — this was the real root cause of
+   dim/black-looking text across list items, mode pickers, etc. */
+button {
+  color: inherit;
+  font-family: inherit;
+}
+
+/* Dropdowns also default to black text in most browsers, which is
+   invisible against this app's dark backgrounds — force it to match
+   the theme and strip native appearance so the color rule actually applies. */
 select {
   color: var(--text) !important;
   -webkit-appearance: none;
