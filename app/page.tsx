@@ -45,18 +45,35 @@ export default async function RootPage() {
             </div>
 
             <div className="hero-visual" aria-hidden="true">
-              <div className="phone-frame">
-                <div className="phone-screen">
-                  <div className="slide slide-1">
-                    <span className="slide-label">Before</span>
+              <div className="app-mock">
+                <div className="app-mock-topbar">
+                  <span className="app-mock-dot" />
+                  <span className="app-mock-dot" />
+                  <span className="app-mock-dot" />
+                </div>
+                <div className="app-mock-body">
+                  <p className="app-mock-label">Video style</p>
+                  <div className="app-mock-modes">
+                    <div className="app-mock-mode active">Transformation</div>
+                    <div className="app-mock-mode">Product Journey</div>
+                    <div className="app-mock-mode">Viral Hook</div>
                   </div>
-                  <div className="slide slide-2">
-                    <span className="slide-label">After</span>
+                  <p className="app-mock-label">Clips</p>
+                  <div className="app-mock-clips">
+                    <div className="app-mock-clip clip-before">
+                      <span>Before</span>
+                    </div>
+                    <div className="app-mock-clip clip-after">
+                      <span>After</span>
+                    </div>
+                    <div className="app-mock-clip clip-product">
+                      <span>Product</span>
+                    </div>
                   </div>
-                  <div className="slide slide-3">
-                    <span className="slide-label">Product</span>
+                  <div className="app-mock-hook">
+                    <b>Curiosity</b>
+                    Found the ultimate fix for this
                   </div>
-                  <div className="hook-bar">Found the ultimate fix for this ✨</div>
                 </div>
               </div>
             </div>
@@ -82,11 +99,11 @@ export default async function RootPage() {
               </div>
               <div className="featured-engine-visual" aria-hidden="true">
                 <div className="mini-flow">
-                  <div className="mini-frame">Before</div>
+                  <div className="mini-frame f-before">Before</div>
                   <div className="mini-arrow">→</div>
-                  <div className="mini-frame">After</div>
+                  <div className="mini-frame f-after">After</div>
                   <div className="mini-arrow">→</div>
-                  <div className="mini-frame">Product</div>
+                  <div className="mini-frame f-product">Product</div>
                 </div>
               </div>
             </div>
