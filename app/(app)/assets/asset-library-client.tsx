@@ -2,8 +2,8 @@
 
 import { useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { createAssetRecord, acceptSuggestedStage, updateAssetStage } from "./actions";
-import { Upload, Check, Pencil, Sparkles, Loader2 } from "lucide-react";
+import { createAssetRecord, acceptSuggestedStage, updateAssetStage, deleteAsset } from "./actions";
+import { Upload, Check, Pencil, Sparkles, Loader2, Trash2 } from "lucide-react";
 
 type Asset = {
   id: string;
@@ -37,6 +37,7 @@ export default function AssetLibraryClient({
   const [assets, setAssets] = useState<Asset[]>(initialAssets);
   const [uploading, setUploading] = useState(false);
   const [analyzingIds, setAnalyzingIds] = useState<Set<string>>(new Set());
+  const [deletingIds, setDeletingIds] = useState<Set<string>>(new Set());
   const [urls, setUrls] = useState<Record<string, string>>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -135,6 +136,22 @@ export default function AssetLibraryClient({
     setAssets((prev) => prev.map((a) => (a.id === asset.id ? { ...a, stage } : a)));
   }
 
+  async function handleDelete(asset: Asset) {
+    setDeletingIds((prev) => new Set(prev).add(asset.id));
+    try {
+      await deleteAsset(asset.id);
+      setAssets((prev) => prev.filter((a) => a.id !== asset.id));
+    } catch (err) {
+      console.error("Delete failed", err);
+    } finally {
+      setDeletingIds((prev) => {
+        const next = new Set(prev);
+        next.delete(asset.id);
+        return next;
+      });
+    }
+  }
+
   return (
     <div className="p-10">
       <div className="flex items-center justify-between mb-1">
@@ -184,9 +201,11 @@ export default function AssetLibraryClient({
               key={asset.id}
               asset={asset}
               analyzing={analyzingIds.has(asset.id)}
+              deleting={deletingIds.has(asset.id)}
               getSignedUrl={getSignedUrl}
               onAccept={() => accept(asset)}
               onSetStage={(s) => setStage(asset, s)}
+              onDelete={() => handleDelete(asset)}
             />
           ))}
         </div>
@@ -198,15 +217,19 @@ export default function AssetLibraryClient({
 function AssetCard({
   asset,
   analyzing,
+  deleting,
   getSignedUrl,
   onAccept,
   onSetStage,
+  onDelete,
 }: {
   asset: Asset;
   analyzing: boolean;
+  deleting: boolean;
   getSignedUrl: (path: string) => Promise<string>;
   onAccept: () => void;
   onSetStage: (stage: string) => void;
+  onDelete: () => void;
 }) {
   const [url, setUrl] = useState<string | null>(null);
   const [editing, setEditing] = useState(false);
@@ -231,6 +254,14 @@ function AssetCard({
         <span className="absolute top-2 left-2 rounded-md bg-black/60 backdrop-blur px-2 py-0.5 text-xs capitalize">
           {asset.stage}
         </span>
+        <button
+          onClick={onDelete}
+          disabled={deleting}
+          className="absolute bottom-2 right-2 rounded-md bg-black/60 backdrop-blur p-1.5 text-red-400 hover:bg-red-400/20 transition-colors disabled:opacity-50"
+          title="Delete asset"
+        >
+          {deleting ? <Loader2 size={13} className="animate-spin" /> : <Trash2 size={13} />}
+        </button>
         {analyzing && (
           <span className="absolute top-2 right-2 rounded-md bg-black/60 backdrop-blur px-2 py-0.5 text-xs flex items-center gap-1">
             <Loader2 size={11} className="animate-spin" /> Analyzing

@@ -3,7 +3,8 @@
 import { useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { createProductAsset, rereadProductLink } from "./actions";
-import { Upload, Sparkles, Loader2, RefreshCw, AlertCircle } from "lucide-react";
+import { deleteAsset } from "../assets/actions";
+import { Upload, Sparkles, Loader2, RefreshCw, AlertCircle, Trash2 } from "lucide-react";
 
 type LinkAnalysis = {
   product_name?: string;
@@ -223,7 +224,12 @@ export default function ProductCard({
         {!!clips.length && (
           <div className="grid grid-cols-4 gap-1.5">
             {clips.map((c) => (
-              <ClipThumb key={c.id} clip={c} getSignedUrl={getSignedUrl} />
+              <ClipThumb
+                key={c.id}
+                clip={c}
+                getSignedUrl={getSignedUrl}
+                onDeleted={() => setClips((prev) => prev.filter((clip) => clip.id !== c.id))}
+              />
             ))}
           </div>
         )}
@@ -235,12 +241,26 @@ export default function ProductCard({
 function ClipThumb({
   clip,
   getSignedUrl,
+  onDeleted,
 }: {
   clip: ProductAsset;
   getSignedUrl: (path: string) => Promise<string>;
+  onDeleted: () => void;
 }) {
   const [url, setUrl] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState(false);
   if (!url) getSignedUrl(clip.storage_path).then(setUrl);
+
+  async function handleDelete() {
+    setDeleting(true);
+    try {
+      await deleteAsset(clip.id);
+      onDeleted();
+    } catch (err) {
+      console.error("Delete failed", err);
+      setDeleting(false);
+    }
+  }
 
   return (
     <div className="aspect-square rounded-md bg-[var(--surface-raised)] overflow-hidden relative group">
@@ -251,6 +271,14 @@ function ClipThumb({
       {url && clip.kind !== "photo" && (
         <video src={url} className="w-full h-full object-cover" muted />
       )}
+      <button
+        onClick={handleDelete}
+        disabled={deleting}
+        className="absolute top-1 right-1 rounded bg-black/60 backdrop-blur p-1 text-red-400 opacity-0 group-hover:opacity-100 hover:bg-red-400/20 transition-opacity disabled:opacity-50"
+        title="Delete clip"
+      >
+        {deleting ? <Loader2 size={11} className="animate-spin" /> : <Trash2 size={11} />}
+      </button>
       {clip.ai_tags?.concern_or_angle && (
         <span className="absolute bottom-0 left-0 right-0 bg-black/70 text-[9px] px-1 py-0.5 truncate">
           {clip.ai_tags.concern_or_angle}

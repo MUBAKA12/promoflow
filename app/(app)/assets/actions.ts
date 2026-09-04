@@ -28,3 +28,30 @@ export async function acceptSuggestedStage(assetId: string, stage: string) {
 export async function updateAssetStage(assetId: string, stage: string) {
   return acceptSuggestedStage(assetId, stage);
 }
+
+export async function deleteAsset(assetId: string) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error("Not authenticated");
+
+  const { data: asset, error: fetchError } = await supabase
+    .from("assets")
+    .select("user_id, storage_path")
+    .eq("id", assetId)
+    .single();
+
+  if (fetchError || !asset) throw new Error("Asset not found");
+  if (asset.user_id !== user.id) throw new Error("Forbidden");
+
+  if (asset.storage_path) {
+    await supabase.storage.from("assets").remove([asset.storage_path]);
+  }
+
+  const { error: deleteError } = await supabase.from("assets").delete().eq("id", assetId);
+  if (deleteError) throw new Error(deleteError.message);
+
+  revalidatePath("/assets");
+  revalidatePath("/products");
+}
