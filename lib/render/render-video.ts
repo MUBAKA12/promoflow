@@ -100,6 +100,33 @@ export async function renderGeneratedVideo(videoId: string) {
 
   if (videoError || !video) throw new Error("Video not found");
 
+  // Credit check: 1 credit = 1 rendered video, across all three engines.
+  // Checked here since this is the single shared entry point they all go
+  // through, right before any actual render (and cost) happens.
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("credits")
+    .eq("id", video.user_id)
+    .single();
+
+  if (!profile || (profile.credits ?? 0) <= 0) {
+    throw new Error(
+      "You're out of credits for this billing period. Upgrade your plan or wait for your next renewal to keep rendering videos."
+    );
+  }
+
+  // Deduct atomically before rendering, not after — avoids a race where two
+  // renders started in parallel could both slip through on the same credit.
+  const { error: deductError } = await supabase
+    .from("profiles")
+    .update({ credits: profile.credits - 1 })
+    .eq("id", video.user_id)
+    .gt("credits", 0);
+
+  if (deductError) {
+    throw new Error("Could not reserve a credit for this render. Please try again.");
+  }
+
   const workDir = await mkdtemp(path.join(tmpdir(), "promoflow-"));
 
   try {
@@ -112,6 +139,20 @@ export async function renderGeneratedVideo(videoId: string) {
     return await renderBeforeAfter(supabase, video, workDir);
   } catch (err) {
     await supabase.from("generated_videos").update({ status: "failed" }).eq("id", videoId);
+    // Refund the credit reserved above — a failed render shouldn't cost the
+    // user anything. Re-read current credits rather than assuming, in case
+    // other renders completed in between.
+    const { data: current } = await supabase
+      .from("profiles")
+      .select("credits")
+      .eq("id", video.user_id)
+      .single();
+    if (current) {
+      await supabase
+        .from("profiles")
+        .update({ credits: current.credits + 1 })
+        .eq("id", video.user_id);
+    }
     throw err;
   } finally {
     await rm(workDir, { recursive: true, force: true });
