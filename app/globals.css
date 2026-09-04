@@ -42,6 +42,52 @@ button {
   font-family: inherit;
 }
 
+/* Count slider — used for hook/variation counts (Generate, Storyboard, Ad Remix) */
+input[type="range"].count-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"].count-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--text);
+  cursor: pointer;
+  margin-top: -6px;
+}
+input[type="range"].count-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--text);
+  cursor: pointer;
+}
+input[type="range"].count-slider::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--border);
+}
+input[type="range"].count-slider::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--border);
+}
+input[type="range"].count-slider::-moz-range-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
 /* Dropdowns also default to black text in most browsers, which is
    invisible against this app's dark backgrounds — force it to match
    the theme and strip native appearance so the color rule actually applies. */

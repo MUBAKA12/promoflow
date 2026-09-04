@@ -436,19 +436,22 @@ function CreativeDetail({
           <p className="text-xs text-[var(--text-muted)] mb-2">
             {creative.image_paths?.length ?? 0} photos
           </p>
-          <div className="flex items-center gap-2 mb-3">
+          <p className="text-sm font-medium mb-2">
+            Hooks to generate: <span className="text-[var(--accent)]">{count}</span>
+          </p>
+          <div className="flex items-center gap-3 mb-3">
             <input
-              type="number"
+              type="range"
               min={1}
               max={30}
               value={count}
               onChange={(e) => setCount(Number(e.target.value))}
-              className="w-20 rounded-lg bg-[var(--surface)] border border-[var(--border)] px-2 py-1.5 text-sm outline-none focus:border-[var(--accent)]"
+              className="count-slider flex-1"
             />
             <button
               onClick={handleGenerateHooks}
               disabled={generating}
-              className="flex items-center gap-1.5 rounded-lg bg-[var(--accent)] text-white px-3 py-1.5 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
+              className="flex items-center gap-1.5 rounded-lg bg-[var(--accent)] text-white px-3 py-1.5 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50 whitespace-nowrap"
             >
               {generating ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
               {generating ? "Writing hooks…" : "Generate hooks"}

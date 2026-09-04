@@ -370,19 +370,22 @@ export default function GenerateClient({
               Hooks / captions — write your own, or generate from the actual clips
             </label>
 
-            <div className="flex items-center gap-2 mb-3">
+            <p className="text-sm font-medium mb-2">
+              Hooks to generate: <span className="text-[var(--accent)]">{hookCount}</span>
+            </p>
+            <div className="flex items-center gap-3 mb-3">
               <input
-                type="number"
+                type="range"
                 min={1}
                 max={20}
                 value={hookCount}
                 onChange={(e) => setHookCount(Number(e.target.value))}
-                className="w-20 rounded-lg bg-[var(--surface)] border border-[var(--border)] px-2 py-1.5 text-sm outline-none focus:border-[var(--accent)]"
+                className="count-slider flex-1"
               />
               <button
                 onClick={handleGenerateHooks}
                 disabled={generatingHooks}
-                className="flex items-center gap-1.5 rounded-lg bg-[var(--accent)] text-white px-3 py-1.5 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
+                className="flex items-center gap-1.5 rounded-lg bg-[var(--accent)] text-white px-3 py-1.5 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50 whitespace-nowrap"
               >
                 {generatingHooks ? (
                   <Loader2 size={14} className="animate-spin" />
