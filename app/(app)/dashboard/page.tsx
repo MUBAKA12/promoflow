@@ -1,20 +1,8 @@
-import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-
-  const { count: channelCount } = await supabase
-    .from("channels")
-    .select("*", { count: "exact", head: true })
-    .eq("user_id", user?.id ?? "");
-
-  // New user with no channel yet — send them through onboarding instead of
-  // an empty dashboard full of zeroes.
-  if (!channelCount || channelCount === 0) {
-    redirect("/onboarding");
-  }
 
   const [{ count: assetCount }, { count: productCount }, { count: videoCount }] = await Promise.all([
     supabase.from("assets").select("*", { count: "exact", head: true }),
