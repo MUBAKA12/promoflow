@@ -61,12 +61,15 @@ export default async function RootPage() {
                   <p className="app-mock-label">Clips</p>
                   <div className="app-mock-clips">
                     <div className="app-mock-clip clip-before">
+                      <img src="/examples/before.jpg" alt="Before" />
                       <span>Before</span>
                     </div>
                     <div className="app-mock-clip clip-after">
+                      <img src="/examples/after.jpg" alt="After" />
                       <span>After</span>
                     </div>
                     <div className="app-mock-clip clip-product">
+                      <img src="/examples/product.jpg" alt="Product" />
                       <span>Product</span>
                     </div>
                   </div>
@@ -99,11 +102,20 @@ export default async function RootPage() {
               </div>
               <div className="featured-engine-visual" aria-hidden="true">
                 <div className="mini-flow">
-                  <div className="mini-frame f-before">Before</div>
+                  <div className="mini-frame f-before">
+                    <img src="/examples/before.jpg" alt="" />
+                    <span>Before</span>
+                  </div>
                   <div className="mini-arrow">→</div>
-                  <div className="mini-frame f-after">After</div>
+                  <div className="mini-frame f-after">
+                    <img src="/examples/after.jpg" alt="" />
+                    <span>After</span>
+                  </div>
                   <div className="mini-arrow">→</div>
-                  <div className="mini-frame f-product">Product</div>
+                  <div className="mini-frame f-product">
+                    <img src="/examples/product.jpg" alt="" />
+                    <span>Product</span>
+                  </div>
                 </div>
               </div>
             </div>
