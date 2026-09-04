@@ -8,7 +8,6 @@ import {
   Tv,
   Images,
   Package,
-  Sparkles,
   Film,
   ShieldCheck,
   LogOut,
@@ -20,9 +19,8 @@ import {
 const NAV = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/channels", label: "Channels", icon: Tv },
-  { href: "/characters", label: "Characters", icon: Sparkles },
-  { href: "/assets", label: "Asset library", icon: Images },
   { href: "/products", label: "Products", icon: Package },
+  { href: "/assets", label: "Asset library", icon: Images },
   { href: "/generate", label: "Generate", icon: Film },
   { href: "/ad-remix", label: "Ad Remix", icon: Clapperboard },
   { href: "/storyboard", label: "Storyboard", icon: GalleryHorizontalEnd },
